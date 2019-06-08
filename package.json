@@ -1,7 +1,7 @@
 {
   "name": "nuxt-vuetify-todolist",
   "version": "1.0.0",
-  "description": "Nuxt based todolist project",
+  "description": "Nuxt based todolist app project",
   "author": "Tom",
   "private": true,
   "scripts": {
