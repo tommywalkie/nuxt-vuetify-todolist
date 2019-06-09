@@ -25,7 +25,7 @@ export const mutations = {
   /**
    * Set todolist state item
    * @param {Object} state - Vuex state
-   * @param {Object} todolist - The todolist to replace current todolist state item
+   * @param {Array.<Object>} todolist - The todolist to replace current todolist state item
    */
   setTodolist(state, todolist) {
     state.todolist = todolist
