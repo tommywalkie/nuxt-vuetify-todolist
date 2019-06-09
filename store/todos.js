@@ -3,15 +3,30 @@ export const state = () => ({
 })
 
 export const mutations = {
+  /**
+   * Add an item to todolist
+   * @param {Object} state - Vuex state
+   * @param {Object} payload - Information about the todo
+   * @param {Number} payload.id - Todo's id
+   * @param {Number} payload.userId - Todo's user id
+   * @param {String} payload.title - Todo's title
+   * @param {Boolean} payload.completed - Todo's completed state
+   * @param {Array.<String>} payload.tags - Todo's tags
+   */
   add(state, payload) {
     state.todolist.push({
       id: payload.id,
       userId: payload.userId,
       title: payload.title,
-      completed: payload.completed,
-      tags: payload.tags
+      completed: payload.completed || false,
+      tags: payload.tags || []
     })
   },
+  /**
+   * Set todolist state item
+   * @param {Object} state - Vuex state
+   * @param {Object} todolist - The todolist to replace current todolist state item
+   */
   setTodolist(state, todolist) {
     state.todolist = todolist
     state.todolist.forEach(function (todo) {
@@ -20,9 +35,19 @@ export const mutations = {
       }
     })
   },
+  /**
+   * Remove an item with specific id from todolist
+   * @param {Object} state - Vuex state
+   * @param {Number} id - Todo's id
+   */
   remove(state, id) {
     state.todolist = state.todolist.filter(todo => (todo.id !== id))
   },
+  /**
+   * Toggle "completed" attribute in a item with specific id from todolist
+   * @param {Object} state - Vuex state
+   * @param {Number} id - Todo's id
+   */
   toggle(state, id) {
     state.todolist.forEach(function (todo) {
       if (todo.id === id) {
@@ -30,6 +55,16 @@ export const mutations = {
       }
     })
   },
+  /**
+   * Edit an item from todolist
+   * @param {Object} state - Vuex state
+   * @param {Object} payload - Information about the todo
+   * @param {Number} payload.id - Todo's id
+   * @param {Number} payload.userId - Todo's user id
+   * @param {String} payload.title - Todo's title
+   * @param {Boolean} payload.completed - Todo's completed state
+   * @param {Array.<String>} payload.tags - Todo's tags
+   */
   editTodo(state, payload) {
     state.todolist.forEach(function (todo) {
       if (todo.id === payload.id) {
@@ -40,6 +75,13 @@ export const mutations = {
       }
     })
   },
+  /**
+   * Add pne tag for one item from todolist
+   * @param {Object} state - Vuex state
+   * @param {Object} payload - Information about the todo
+   * @param {String} payload.tag - Tag to be added
+   * @param {Number} payload.id - Todo's id
+   */
   addTag(state, payload) {
     const tag = payload.tag
     const id = payload.id
@@ -49,6 +91,13 @@ export const mutations = {
       }
     })
   },
+  /**
+   * Remove pne tag in one item from todolist
+   * @param {Object} state - Vuex state
+   * @param {Object} payload - Information about the todo
+   * @param {String} payload.tag - Tag to be removed
+   * @param {Number} payload.id - Todo's id
+   */
   removeTag(state, payload) {
     const tag = payload.tag
     const id = payload.id
