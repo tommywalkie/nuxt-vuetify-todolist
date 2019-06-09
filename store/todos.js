@@ -68,10 +68,10 @@ export const mutations = {
   editTodo(state, payload) {
     state.todolist.forEach(function (todo) {
       if (todo.id === payload.id) {
-        todo.userId = payload.userId
-        todo.title = payload.title
-        todo.completed = payload.completed
-        todo.tags = payload.tags
+        todo.userId = payload.userId || todo.userId
+        todo.title = payload.title || todo.title
+        todo.completed = payload.completed || todo.completed
+        todo.tags = payload.tags || todo.tags
       }
     })
   },
