@@ -1,22 +1,45 @@
 <template>
   <v-layout>
     <v-flex text-xs-center>
-      <p>Here will be located the todolist</p>
-      <v-card v-for="(todo, index) in todolist" :key="index">
-        <input v-model="todo.completed" type="checkbox" @click="toggleTodo(todo.id)">
-        {{ todo.title }}
-        </input>
-      </v-card>
+      <TodoCardAdd v-show="isAdding" :isAdding="isAdding" />
+      <TodoCard v-show="!isAdding" v-for="todo in todolist" :key="todo.id" :todo="todo"/>
     </v-flex>
+    <v-fab-transition>
+      <v-btn
+        color="indigo accent-2"
+        dark
+        fixed
+        bottom
+        right
+        fab
+        @click="isAdding = !isAdding"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-layout>
 </template>
 
 <script>
+import TodoCardAdd from '@/components/TodoCardAdd'
+import TodoCard from '@/components/TodoCard'
 import { mapMutations } from 'vuex'
 export default {
+  components: {
+    TodoCard,
+    TodoCardAdd
+  },
+  data() {
+    return {
+      isAdding: false
+    }
+  },
   computed: {
     todolist() {
-      return this.$store.state.todos.todolist
+      const sortBy = (key) => {
+        return (a, b) => (a[key] < b[key]) ? 1 : ((b[key] < a[key]) ? -1 : 0)
+      }
+      return this.$store.state.todos.todolist.concat().sort(sortBy('id'))
     }
   },
   created: function () {
